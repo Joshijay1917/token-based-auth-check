@@ -4,6 +4,7 @@ export const Store = createContext()
 
 export function StoreProvider({children}) {
     const [curretnUser, setCurretnUser] = useState(null)
+    const [loading, setloading] = useState(false)
     const Backend_API = 'https://chai-aur-code-backend-exfp.onrender.com/api/v1/users'
 
     useEffect(() => {
@@ -11,6 +12,7 @@ export function StoreProvider({children}) {
     }, [])
 
     const checkIsLoggedIn = async () => {
+        setloading(true)
         try {
             const res = await fetch(`${Backend_API}/current-user`, {
                 method: "GET",
@@ -21,8 +23,10 @@ export function StoreProvider({children}) {
             if(data.success) {
                 setCurretnUser(data.data)
             }
+            setloading(false)
         } catch (error) {
             console.error("failed to call backend to check is logged In!!")
+            setloading(false)
         }
     }
     
@@ -30,12 +34,13 @@ export function StoreProvider({children}) {
     const values = {
         Backend_API,
         curretnUser,
+        loading,
         setCurretnUser
     }
 
     return (
         <Store.Provider value={values}>
-            {children}
+            {!loading ? children : <p>Loading....</p>}
         </Store.Provider>
     )
 }
