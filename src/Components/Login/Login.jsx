@@ -26,7 +26,6 @@ const Login = () => {
         e.preventDefault();
         setMessage('');
         setLoading(true);
-        setToken('');
 
         try {
             // WARNING: This API call will likely fail in this sandbox environment 
@@ -45,7 +44,6 @@ const Login = () => {
                 const receivedToken = data.data?.accessToken || data.accessToken;
                 
                 if (receivedToken) {
-                    setToken(receivedToken);
                     setCurretnUser(data.data.user)
                     setMessage(`Login SUCCESS! Token received: ${receivedToken.substring(0, 30)}...`);
                     setTimeout(() => {
@@ -121,13 +119,6 @@ const Login = () => {
                 {message && (
                     <div className={`mt-6 p-4 rounded-lg font-medium text-sm ${message.startsWith('Error') ? 'bg-red-100 text-red-700 border border-red-400' : 'bg-green-100 text-green-700 border border-green-400'}`}>
                         {message}
-                    </div>
-                )}
-                
-                {/* Display Token */}
-                {token && (
-                    <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg text-xs font-mono break-all">
-                        <span className="font-semibold text-gray-700">Token:</span> {token}
                     </div>
                 )}
 

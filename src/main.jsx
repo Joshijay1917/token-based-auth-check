@@ -8,15 +8,13 @@ import Login from './Components/Login/Login.jsx'
 import Register from './Components/Regsiter/Register.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <StoreProvider>
-      <BrowserRouter>
+  <StoreProvider>
+    <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='/home' element={<App />}/>
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/home' element={<App />} />
       </Routes>
-      </BrowserRouter>
-    </StoreProvider>
-  </StrictMode>,
+    </BrowserRouter>
+  </StoreProvider>
 )
