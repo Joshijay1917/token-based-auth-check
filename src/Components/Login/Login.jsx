@@ -12,7 +12,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const storeData = useContext(Store)
     const API_BASE_URL = storeData.Backend_API
-    const { token, setToken, setCurretnUser, curretnUser } = storeData
+    const { setCurretnUser, curretnUser } = storeData
     const navigate = useNavigate()
 
     // --- Input Handler ---
@@ -34,7 +34,8 @@ const Login = () => {
             const response = await fetch(`${API_BASE_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form), 
+                body: JSON.stringify(form),
+                credentials: 'include'
             });
 
             const data = await response.json();
