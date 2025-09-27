@@ -8,11 +8,11 @@ export function StoreProvider({children}) {
     const Backend_API = 'https://chai-aur-code-backend-exfp.onrender.com/api/v1/users'
 
     useEffect(() => {
-        checkIsLoggedIn()
+        checkIsLoggedIn(true)
     }, [])
     
 
-    const checkIsLoggedIn = async () => {
+    const checkIsLoggedIn = async (retry) => {
         setloading(true)
         try {
             const res = await fetch(`${Backend_API}/current-user`, {
@@ -23,12 +23,34 @@ export function StoreProvider({children}) {
 
             if(data.success) {
                 setCurretnUser(data.data)
+            } else if(data.message === 'Token Expired') {
+                const refreshed = await refreshTokens()
+                if(refreshed && retry) {
+                    await checkIsLoggedIn(false)
+                }
             }
-            setloading(false)
         } catch (error) {
             console.error("failed to call backend to check is logged In!!")
+        } finally {
             setloading(false)
         }
+    }
+
+    const refreshTokens = async () => {
+        try {
+            const res = await fetch(`${Backend_API}/refresh-token`, {
+                method: "GET",
+                credentials: "include"
+            })
+            const data = await res.json()
+
+            if(data.success) {
+                return true;
+            }
+        } catch (error) {
+            console.error("Failed to refresh accessToken ", error)
+        }
+        return false;
     }
     
 
