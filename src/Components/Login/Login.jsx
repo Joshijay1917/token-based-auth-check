@@ -12,7 +12,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const storeData = useContext(Store)
     const API_BASE_URL = storeData.Backend_API
-    const { setCurretnUser, curretnUser } = storeData
+    const { setCurretnUser } = storeData
     const navigate = useNavigate()
 
     // --- Input Handler ---
@@ -72,7 +72,7 @@ const Login = () => {
     // --- Render ---
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-            {curretnUser && navigate('/home')}
+
             <div className="w-full max-w-lg bg-white p-8 sm:p-10 rounded-2xl shadow-2xl transition duration-300 hover:shadow-3xl">
                 
                 <header className="mb-6 border-b pb-4">
