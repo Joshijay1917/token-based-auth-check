@@ -12,8 +12,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const storeData = useContext(Store)
     const API_BASE_URL = storeData.Backend_API
-    const { setCurretnUser } = storeData
+    const { setCurretnUser, curretnUser } = storeData
     const navigate = useNavigate()
+    
+    useEffect(() => {
+      if(curretnUser) {
+        navigate('/home')
+      }
+    }, [curretnUser])
 
     // --- Input Handler ---
     const handleInputChange = (e) => {

@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const Store = createContext()
 
@@ -7,17 +6,10 @@ export function StoreProvider({children}) {
     const [curretnUser, setCurretnUser] = useState(null)
     const [loading, setloading] = useState(false)
     const Backend_API = 'https://chai-aur-code-backend-exfp.onrender.com/api/v1/users'
-    const navigate = useNavigate()
 
     useEffect(() => {
         checkIsLoggedIn()
     }, [])
-
-    useEffect(() => {
-      if(curretnUser) {
-        navigate('/home')
-      }
-    }, [curretnUser])
     
 
     const checkIsLoggedIn = async () => {
