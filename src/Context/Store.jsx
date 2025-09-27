@@ -5,7 +5,7 @@ export const Store = createContext()
 export function StoreProvider({children}) {
     const [curretnUser, setCurretnUser] = useState(null)
     const [token, setToken] = useState('');
-    const Backend_API = 'http://localhost:8000/api/v1/users'
+    const Backend_API = 'https://chai-aur-code-backend-exfp.onrender.com/api/v1/users'
 
     useEffect(() => {
         checkIsLoggedIn()
