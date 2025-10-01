@@ -21,6 +21,7 @@ export function StoreProvider({children}) {
             })
             const data = await res.json()
 
+            console.log("DATA:",data);
             if(data.success) {
                 setCurretnUser(data.data)
             } else if(data.message === 'Token Expired') {
@@ -37,6 +38,7 @@ export function StoreProvider({children}) {
     }
 
     const refreshTokens = async () => {
+        console.log("call refresh token");
         try {
             const res = await fetch(`${Backend_API}/refresh-token`, {
                 method: "GET",
